@@ -174,6 +174,10 @@ numbers = [1, 2, 3, 4, 5]
 # chars = [ch for ch in word];
 # print(chars);
 
-word = "programming"
-vowels = [ch for ch in word if ch.lower() in "aeiou"];
-print(vowels);
+# word = "programming"
+# vowels = [ch for ch in word if ch.lower() in "aeiou"];
+# print(vowels);
+
+files = ["report.pdf","image.jpg","data.xlsx","notes.pdf"];
+pdf_files= [file for file in files if file.endswith(".pdf")];
+print(pdf_files);
