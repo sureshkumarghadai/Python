@@ -174,4 +174,190 @@ while True:
 
     else:
         print("Invalid Choice")
- 
+ ####################################################################
+ # Dictionary Example
+ # Inventory Management System
+
+inventory = {}
+
+while True:
+    print("\n===== INVENTORY MANAGEMENT =====")
+    print("1. Add Product")
+    print("2. View Products")
+    print("3. Update Quantity")
+    print("4. Delete Product")
+    print("5. Search Product")
+    print("6. Exit")
+
+    choice = input("Choose Option: ")
+
+    if choice == "1":
+        product = input("Enter product name: ")
+        quantity = int(input("Enter quantity: "))
+
+        inventory[product] = quantity
+        print("Product added successfully.")
+
+    elif choice == "2":
+        print("\nAvailable Products")
+
+        for product, qty in inventory.items():
+            print(f"{product}: {qty}")
+
+    elif choice == "3":
+        product = input("Enter product name: ")
+
+        if product in inventory:
+            quantity = int(input("Enter new quantity: "))
+            inventory[product] = quantity
+            print("Quantity updated.")
+        else:
+            print("Product not found.")
+
+    elif choice == "4":
+        product = input("Enter product name: ")
+
+        if product in inventory:
+            del inventory[product]
+            print("Product deleted.")
+        else:
+            print("Product not found.")
+
+    elif choice == "5":
+        product = input("Enter product name: ")
+
+        if product in inventory:
+            print("Quantity:", inventory[product])
+        else:
+            print("Product not available.")
+
+    elif choice == "6":
+        break
+
+    else:
+        print("Invalid Choice")
+
+ # University Management System
+
+university = {
+    "CS101": {
+        "course_name": "Computer Science",
+        "students": ["John", "Mary", "David"]
+    },
+    "CS102": {
+        "course_name": "Data Science",
+        "students": ["Sophia", "Alex"]
+    }
+}
+
+while True:
+    print("\n===== UNIVERSITY MANAGEMENT =====")
+    print("1. View Courses")
+    print("2. View Students")
+    print("3. Add Student")
+    print("4. Exit")
+
+    choice = input("Enter choice: ")
+
+    if choice == "1":
+        print("\nCourses")
+
+        for course, details in university.items():
+            print(course, "-", details["course_name"])
+
+    elif choice == "2":
+        course = input("Enter course code: ")
+
+        if course in university:
+            print("\nStudents")
+
+            for student in university[course]["students"]:
+                print(student)
+        else:
+            print("Course not found.")
+
+    elif choice == "3":
+        course = input("Enter course code: ")
+
+        if course in university:
+            student = input("Enter student name: ")
+            university[course]["students"].append(student)
+            print("Student added.")
+        else:
+            print("Course not found.")
+
+    elif choice == "4":
+        print("Exiting...")
+        break
+
+    else:
+        print("Invalid choice.")
+        ====================================================
+library = {
+    "members": set(),
+    "books": {
+        "B101": {
+            "details": ("978001", "Python Programming"),
+            "categories": ["Programming", "Technology"],
+            "issued_to": None
+        },
+        "B102": {
+            "details": ("978002", "Data Structures"),
+            "categories": ["Computer Science"],
+            "issued_to": None
+        }
+    }
+}
+
+while True:
+    print("\n===== LIBRARY SYSTEM =====")
+    print("1. Register Member")
+    print("2. View Members")
+    print("3. View Books")
+    print("4. Issue Book")
+    print("5. Return Book")
+    print("6. Exit")
+
+    choice = input("Enter choice: ")
+
+    if choice == "1":
+        member = input("Enter member name: ")
+        library["members"].add(member)
+        print("Member Registered.")
+
+    elif choice == "2":
+        print("\nMembers:")
+        for m in library["members"]:
+            print(m)
+
+    elif choice == "3":
+        print("\nBooks:")
+
+        for book_id, data in library["books"].items():
+            isbn, title = data["details"]
+            print(f"{book_id} | {title} | ISBN:{isbn}")
+
+    elif choice == "4":
+        member = input("Member Name: ")
+        book_id = input("Book ID: ")
+
+        if member in library["members"]:
+            if book_id in library["books"]:
+                library["books"][book_id]["issued_to"] = member
+                print("Book Issued Successfully")
+            else:
+                print("Book not found")
+        else:
+            print("Member not registered")
+
+    elif choice == "5":
+        book_id = input("Book ID: ")
+
+        if book_id in library["books"]:
+            library["books"][book_id]["issued_to"] = None
+            print("Book Returned Successfully")
+        else:
+            print("Book not found")
+
+    elif choice == "6":
+        break

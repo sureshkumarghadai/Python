@@ -82,169 +82,169 @@
 #         print(number,"is a prime number")
 #         break
 
-"""
-Simple ATM Banking System
---------------------------
-Author: Python Developer
-Description:
-    A menu-driven ATM simulator with:
-      - PIN verification
-      - Check Balance / Deposit / Withdraw / Exit
-      - Transaction history
-      - Daily withdrawal limit
-      - Input validation (non-numeric, negative, zero)
-      - Displays current date & time on the menu
-"""
+# """
+# Simple ATM Banking System
+# --------------------------
+# Author: Python Developer
+# Description:
+#     A menu-driven ATM simulator with:
+#       - PIN verification
+#       - Check Balance / Deposit / Withdraw / Exit
+#       - Transaction history
+#       - Daily withdrawal limit
+#       - Input validation (non-numeric, negative, zero)
+#       - Displays current date & time on the menu
+# """
 
-from datetime import datetime   # needed to get today's date and current time
+# from datetime import datetime   # needed to get today's date and current time
 
-# ---------- Step 1: Starting account data ----------
-balance = 5000.0
-correct_pin = "1234"
-transaction_history = []      # list of strings describing each transaction
-daily_withdrawn = 0.0         # total withdrawn so far in this session ("today")
-DAILY_WITHDRAWAL_LIMIT = 20000.0
-
-
-# ---------- Step 1b: Helper to get a timestamp for logging ----------
-def get_timestamp():
-    """Return the current date and time as a formatted string, for use in logs."""
-    return datetime.now()
+# # ---------- Step 1: Starting account data ----------
+# balance = 5000.0
+# correct_pin = "1234"
+# transaction_history = []      # list of strings describing each transaction
+# daily_withdrawn = 0.0         # total withdrawn so far in this session ("today")
+# DAILY_WITHDRAWAL_LIMIT = 20000.0
 
 
-# ---------- Step 2: Helper to safely read a number ----------
-def get_amount(prompt):
-    """
-    Ask the user for an amount and validate it is a number.
-    Returns None if invalid, so the caller can handle the error.
-    """
-    value = input(prompt).strip()
-    try:
-        return float(value)
-    except ValueError:
-        print("Invalid input. Please enter a numeric value (e.g., 500 or 500.50).")
-        return None
+# # ---------- Step 1b: Helper to get a timestamp for logging ----------
+# def get_timestamp():
+#     """Return the current date and time as a formatted string, for use in logs."""
+#     return datetime.now()
 
 
-# ---------- Step 3: PIN verification ----------
-def verify_pin():
-    """Ask for a PIN up to 3 times before locking the user out."""
-    for attempt in range(3):
-        pin = input("Enter your 4-digit PIN: ").strip()
-        if pin == correct_pin:
-            print("PIN verified successfully.\n")
-            return True
-        else:
-            print(f"Incorrect PIN. {2 - attempt} attempt(s) remaining.")
-    print("Too many incorrect attempts. Exiting for security reasons.")
-    return False
+# # ---------- Step 2: Helper to safely read a number ----------
+# def get_amount(prompt):
+#     """
+#     Ask the user for an amount and validate it is a number.
+#     Returns None if invalid, so the caller can handle the error.
+#     """
+#     value = input(prompt).strip()
+#     try:
+#         return float(value)
+#     except ValueError:
+#         print("Invalid input. Please enter a numeric value (e.g., 500 or 500.50).")
+#         return None
 
 
-# ---------- Step 4: Core ATM features ----------
-def check_balance(balance):
-    print(f"\nYour current balance is: {balance:.2f}")
-    timestamp = get_timestamp()
-    transaction_history.append(f"[{timestamp}] Balance inquiry -> Balance: {balance:.2f}")
-    return balance
+# # ---------- Step 3: PIN verification ----------
+# def verify_pin():
+#     """Ask for a PIN up to 3 times before locking the user out."""
+#     for attempt in range(3):
+#         pin = input("Enter your 4-digit PIN: ").strip()
+#         if pin == correct_pin:
+#             print("PIN verified successfully.\n")
+#             return True
+#         else:
+#             print(f"Incorrect PIN. {2 - attempt} attempt(s) remaining.")
+#     print("Too many incorrect attempts. Exiting for security reasons.")
+#     return False
 
 
-def deposit_money(balance):
-    amount = get_amount("Enter amount to deposit: ")
-    if amount is None:
-        return balance
-
-    if amount <= 0:
-        print("Deposit amount must be greater than zero.")
-        return balance
-
-    balance += amount
-    timestamp = get_timestamp()
-    transaction_history.append(f"[{timestamp}] Deposited {amount:.2f} -> New Balance: {balance:.2f}")
-    print(f"Deposit successful! Updated balance: {balance:.2f}")
-    return balance
+# # ---------- Step 4: Core ATM features ----------
+# def check_balance(balance):
+#     print(f"\nYour current balance is: {balance:.2f}")
+#     timestamp = get_timestamp()
+#     transaction_history.append(f"[{timestamp}] Balance inquiry -> Balance: {balance:.2f}")
+#     return balance
 
 
-def withdraw_money(balance, daily_withdrawn):
-    amount = get_amount("Enter amount to withdraw: ")
-    if amount is None:
-        return balance, daily_withdrawn
+# def deposit_money(balance):
+#     amount = get_amount("Enter amount to deposit: ")
+#     if amount is None:
+#         return balance
 
-    if amount <= 0:
-        print("Withdrawal amount must be positive.")
-        return balance, daily_withdrawn
+#     if amount <= 0:
+#         print("Deposit amount must be greater than zero.")
+#         return balance
 
-    if amount > balance:
-        print(f"Insufficient funds. Your current balance is {balance:.2f}")
-        return balance, daily_withdrawn
-
-    if (daily_withdrawn + amount) > DAILY_WITHDRAWAL_LIMIT:
-        remaining = DAILY_WITHDRAWAL_LIMIT - daily_withdrawn
-        print(f"Daily withdrawal limit exceeded. You can withdraw up to {remaining:.2f} more today.")
-        return balance, daily_withdrawn
-
-    balance -= amount
-    daily_withdrawn += amount
-    timestamp = get_timestamp()
-    transaction_history.append(f"[{timestamp}] Withdrew {amount:.2f} -> New Balance: {balance:.2f}")
-    print(f"Withdrawal successful! Updated balance: {balance:.2f}")
-    return balance, daily_withdrawn
+#     balance += amount
+#     timestamp = get_timestamp()
+#     transaction_history.append(f"[{timestamp}] Deposited {amount:.2f} -> New Balance: {balance:.2f}")
+#     print(f"Deposit successful! Updated balance: {balance:.2f}")
+#     return balance
 
 
-def show_transaction_history():
-    print("\n----- Transaction History -----")
-    if not transaction_history:
-        print("No transactions yet.")
-    else:
-        for i, record in enumerate(transaction_history, start=1):
-            print(f"{i}. {record}")
-    print("--------------------------------")
+# def withdraw_money(balance, daily_withdrawn):
+#     amount = get_amount("Enter amount to withdraw: ")
+#     if amount is None:
+#         return balance, daily_withdrawn
+
+#     if amount <= 0:
+#         print("Withdrawal amount must be positive.")
+#         return balance, daily_withdrawn
+
+#     if amount > balance:
+#         print(f"Insufficient funds. Your current balance is {balance:.2f}")
+#         return balance, daily_withdrawn
+
+#     if (daily_withdrawn + amount) > DAILY_WITHDRAWAL_LIMIT:
+#         remaining = DAILY_WITHDRAWAL_LIMIT - daily_withdrawn
+#         print(f"Daily withdrawal limit exceeded. You can withdraw up to {remaining:.2f} more today.")
+#         return balance, daily_withdrawn
+
+#     balance -= amount
+#     daily_withdrawn += amount
+#     timestamp = get_timestamp()
+#     transaction_history.append(f"[{timestamp}] Withdrew {amount:.2f} -> New Balance: {balance:.2f}")
+#     print(f"Withdrawal successful! Updated balance: {balance:.2f}")
+#     return balance, daily_withdrawn
 
 
-# ---------- Step 5: Menu display ----------
-def show_menu():
-    current_datetime = datetime.now().strftime("%d-%b-%Y %I:%M:%S %p")
-    print("\n===== ATM MENU =====")
-    print(f"Date & Time: {current_datetime}")
-    print("1. Check Balance")
-    print("2. Deposit Money")
-    print("3. Withdraw Money")
-    print("4. View Transaction History")
-    print("5. Exit")
+# def show_transaction_history():
+#     print("\n----- Transaction History -----")
+#     if not transaction_history:
+#         print("No transactions yet.")
+#     else:
+#         for i, record in enumerate(transaction_history, start=1):
+#             print(f"{i}. {record}")
+#     print("--------------------------------")
 
 
-# ---------- Step 6: Main program (menu loop) ----------
-def main():
-    global balance  # not strictly needed since we reassign via return, kept for clarity
-
-    print("Welcome to the Simple ATM Banking System")
-
-    if not verify_pin():
-        return   # stop the program if PIN verification fails
-
-    bal = balance
-    withdrawn_today = daily_withdrawn
-
-    while True:
-        show_menu()
-        choice = input("Enter your choice (1-5): ").strip()
-
-        if choice == "1":
-            bal = check_balance(bal)
-        elif choice == "2":
-            bal = deposit_money(bal)
-        elif choice == "3":
-            bal, withdrawn_today = withdraw_money(bal, withdrawn_today)
-        elif choice == "4":
-            show_transaction_history()
-        elif choice == "5":
-            print("\nThank you for banking with us. Have a great day!")
-            break
-        else:
-            print("Invalid choice. Please select an option between 1 and 5.")
+# # ---------- Step 5: Menu display ----------
+# def show_menu():
+#     current_datetime = datetime.now().strftime("%d-%b-%Y %I:%M:%S %p")
+#     print("\n===== ATM MENU =====")
+#     print(f"Date & Time: {current_datetime}")
+#     print("1. Check Balance")
+#     print("2. Deposit Money")
+#     print("3. Withdraw Money")
+#     print("4. View Transaction History")
+#     print("5. Exit")
 
 
-if __name__ == "__main__":
-    main()
+# # ---------- Step 6: Main program (menu loop) ----------
+# def main():
+#     global balance  # not strictly needed since we reassign via return, kept for clarity
+
+#     print("Welcome to the Simple ATM Banking System")
+
+#     if not verify_pin():
+#         return   # stop the program if PIN verification fails
+
+#     bal = balance
+#     withdrawn_today = daily_withdrawn
+
+#     while True:
+#         show_menu()
+#         choice = input("Enter your choice (1-5): ").strip()
+
+#         if choice == "1":
+#             bal = check_balance(bal)
+#         elif choice == "2":
+#             bal = deposit_money(bal)
+#         elif choice == "3":
+#             bal, withdrawn_today = withdraw_money(bal, withdrawn_today)
+#         elif choice == "4":
+#             show_transaction_history()
+#         elif choice == "5":
+#             print("\nThank you for banking with us. Have a great day!")
+#             break
+#         else:
+#             print("Invalid choice. Please select an option between 1 and 5.")
+
+
+# if __name__ == "__main__":
+#     main()
 
 
 

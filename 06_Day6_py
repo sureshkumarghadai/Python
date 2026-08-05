@@ -1,0 +1,151 @@
+# print("STUDENT AGE VALIDATION")
+
+# try:
+
+#     age = int(input("Enter Age: "))
+
+#     print("Age Entered:", age)
+
+# except ValueError:
+
+#     print("Invalid Input.")
+#     print("Please enter numeric values only.")
+
+# print("Application Ended")
+
+ 
+# print("EMPLOYEE SALARY CALCULATOR")
+# try:
+#     salary = 50000
+#     bonus = "5000"
+#     total_salary = salary + bonus
+#     print("Total Salary:", total_salary)
+# except TypeError:
+#     print("Cannot perform operation on incompatible data types.")
+ 
+# orders = [
+#     "Laptop",
+#     "Mobile",
+#     "Printer"
+# ]
+
+# try:
+
+#     index = int(
+#         input("Enter Order Position: ")
+#     )
+
+#     print(
+#         "Order:",
+#         orders[index]
+#     )
+
+# except IndexError:
+
+#     print(
+#         "Order position does not exist."
+#     )
+
+# try:
+
+#     file = open(
+#         "company_report.txt",
+#         "r"
+#     )
+
+#     content = file.read()
+
+#     print(content)
+
+#     file.close()
+
+# except FileNotFoundError:
+
+#     print(
+#         "Report file not found."
+#     )
+
+
+# print("BANKING SYSTEM")
+
+# try:
+
+#     amount = int(
+#         input("Enter Amount: ")
+#     )
+
+#     result = 10000 / amount
+
+#     print("Result:", result)
+
+# except ZeroDivisionError:
+
+#     print(
+#         "Amount cannot be zero."
+#     )
+
+# finally:
+
+#     print(
+#         "Transaction Closed."
+#     )
+
+# try:
+
+#     age = int(
+#         input(
+#             "Enter Employee Age: "
+#         )
+#     )
+
+#     if age < 18:
+#         raise ValueError(
+#             "Employee must be at least 18 years old."
+#         )
+
+#     print(
+#         "Employee Eligible"
+#     )
+
+# except ValueError as error:
+
+#     print(
+#         "Error:",
+#         error
+#     )
+
+try:
+
+    number = int(
+        input("Enter Number: ")
+    )
+
+    values = [10, 20, 30]
+
+    position = int(
+        input("Enter Position: ")
+    )
+
+    print(values[position])
+
+except ValueError:
+
+    print(
+        "Invalid Numeric Input."
+    )
+
+except IndexError:
+
+    print(
+        "Position Not Available."
+    )
+
+except Exception:
+
+    print(
+        "Unexpected Error Occurred."
+    )
+finally:
+    print("Unexpected error occured.")
+
+    
